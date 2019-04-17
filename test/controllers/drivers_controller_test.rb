@@ -4,6 +4,9 @@ describe DriversController do
   describe "index" do
     it "can get index" do
       # Your code here
+      get driver_path
+
+      must_respond_with :success
     end
   end
 
