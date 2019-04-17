@@ -1,0 +1,70 @@
+<h1>
+    <%= @driver.name%>
+</h1>
+
+<h2>Average Rating: <%#Calculate rating here%></h2>
+
+<section>
+    <h2>Dirver Trips</h2>
+      <article>
+        <table>
+          <thead>
+            <tr>
+              <th width="10%">
+              ID
+              </th>
+              <th width="10%">
+              Date
+              </th>
+              <th width="20%">
+              Driver
+              </th>
+              <th width="20%">
+              Passenger
+              </th>
+              <th width="10%">
+              Price
+              </th>
+              <th width="10%">
+              Rating
+              </th>
+              <th width="20%">
+              Delete/Edit Link
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%# list of trips ---> so it would be a list of the passengers.driver(where driver id is the driver showing%>
+            <% @trips.each do |trip|%>
+            <tr>
+              <td>
+                <%= link_to trip.id %>
+              </td>
+               <td>
+                <%= trip.date %>
+              </td>
+               <td>
+                <%= link_to trip.driver.name %>
+              </td>
+               <td>
+                <%= link_to trip.passenger.name %>
+              </td>
+               <td>
+                <p>$ <%= trip.cost %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
+              </td>
+               <td>
+                <%= trip.rating.round %>
+              </td>
+              <td>
+                <%= link_to "Delete"%>
+                <%= link_to "Edit"%>
+              </td>
+            </tr>
+            <% end%>
+
+          </tbody>
+         </table>
+          
+      </article>
+
+</section>
