@@ -67,5 +67,5 @@
 </section>
 <p>
 <%= link_to "Edit Driver", edit_driver_path(@driver.id) %>
-<%= link_to "Delete Driver" %> <%##driver_path(@driver.id), method: :delete ---> It can't delete because the driver_id is a foreign key in trip ---> determine validations and procedures to delete all the entries for the driver on trips. Is this appropiate?%>
-<p>
+<%= link_to "Delete Driver", driver_path(@driver.id), method: :delete%> <%##driver_path(@driver.id), method: :delete ---> It can't delete because the driver_id is a foreign key in trip ---> determine validations and procedures to delete all the entries for the driver on trips. Is this appropiate?%>
+</p>
