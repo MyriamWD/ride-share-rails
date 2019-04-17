@@ -1,5 +1,16 @@
 
 
+<% if @driver.errors.any? %>
+  <ul class="errors">
+    <% @driver.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+
 <%# This should form_with go on _form "partial". _form will work as a template for the edit and create driver views---> refactor
 Where and how to make the validation "I want to see errors and validations that show that a driver must be provided a name and VIN, so that I cannot make a driver without name or VIN"%>
 
