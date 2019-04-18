@@ -149,9 +149,7 @@ describe DriversController do
         name: "Bark Alot",
         vin: "4legs",
       }
-
       new_driver = Driver.create(driver_create)
-
       expect {
         delete driver_path(new_driver.id)
       }.must_change "Driver.count", -1
