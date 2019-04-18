@@ -62,7 +62,7 @@ class DriversController < ApplicationController
         trip.destroy
 
         # we can try to change the id to a different thing
-        # or destroy the trip
+        # or destroy the trip - so far this is deleting the trips related to the driver
       end
       driver.destroy
       redirect_to drivers_path
