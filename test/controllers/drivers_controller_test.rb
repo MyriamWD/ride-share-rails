@@ -144,5 +144,26 @@ describe DriversController do
   end
 
   describe "destroy" do
+    it "successfully deletes a task" do
+      driver_create = {
+        name: "Bark Alot",
+        vin: "4legs",
+      }
+
+      new_driver = Driver.create(driver_create)
+
+      expect {
+        delete driver_path(new_driver.id)
+      }.must_change "Driver.count", -1
+      must_respond_with :redirect
+    end
+
+    it "returns 404 if not found" do
+      invalid_id = "Hello"
+      expect {
+        delete driver_path(invalid_id)
+      }.wont_change "Driver.count"
+      must_respond_with :not_found
+    end
   end
 end
