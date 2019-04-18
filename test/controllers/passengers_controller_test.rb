@@ -12,7 +12,7 @@ describe PassengersController do
     it "should show an existing, valid passenger" do
 
       # Arrange
-      passenger = Passenger.create(name: "test passenger", phone_num: "123-456-7890")
+      passenger = Passenger.create(name: "test passenger", phone_num: "123-456-7890", deleted: false)
       valid_passenger_id = passenger.id
 
       # Act
