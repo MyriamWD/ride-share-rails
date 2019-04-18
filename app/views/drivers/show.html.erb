@@ -45,10 +45,10 @@
                 <%= trip.date %>
               </td>
                <td>
-                <%= link_to trip.driver.name %>
+                <%= link_to trip.driver.name, driver_path(trip.driver.id) %>
               </td>
                <td>
-                <%= link_to trip.passenger.name %>
+                <%= link_to trip.passenger.name, passenger_path(trip.passenger.id) %>
               </td>
                <td>
                 <p>$ <%= (trip.cost / 100).round(2) %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
