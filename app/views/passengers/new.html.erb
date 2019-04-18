@@ -1,0 +1,8 @@
+<h2>Use this form to create a new passenger!</h2>
+
+<%= render partial: "form_passenger", locals: {
+    form_class: "create-passenger",
+    action_name: "Create Passenger"
+}%>
+
+ <%= link_to "Back to Passenger's list", passengers_path%> 

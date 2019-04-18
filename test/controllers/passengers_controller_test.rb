@@ -47,7 +47,7 @@ describe PassengersController do
       must_respond_with :success
     end
 
-    it "responds with 404 when trying to edit a non existant driver" do
+    it "responds with 404 when trying to edit a non existant passenger" do
       invalid_passenger_id = "im a fake id"
       get edit_passenger_path(invalid_passenger_id)
 
@@ -56,14 +56,14 @@ describe PassengersController do
   end
 
   describe "update" do
-    it "updates an existing driver" do
+    it "updates an existing passenger" do
       passenger_input = {
         name: "test passenger",
         phone_num: "123-456-7890",
       }
       passenger_to_update = Passenger.create(passenger_input)
       update_input = {
-        "passenger": {
+        passenger: {
           name: "updated passenger",
           phone_num: "564-456-4543",
         },
@@ -84,7 +84,7 @@ describe PassengersController do
       }
       passenger_to_update = Passenger.create(create_input)
       update_input = {
-        "passenger": {
+        passenger: {
           name: "",
           phone_num: "hey, what's up?",
         },
@@ -99,16 +99,48 @@ describe PassengersController do
     end
   end
 
-  describe "update" do
-    # Your tests go here
-  end
-
   describe "new" do
-    # Your tests go here
+    it "renders the form to create a new passenger" do
+      get new_passenger_path
+
+      must_respond_with :success
+    end
   end
 
   describe "create" do
-    # Your tests go here
+    it "creates a new passenger" do
+      passenger_create = {
+        passenger: {
+          name: "Ms Nice",
+          phone_num: "465-643-4565",
+        },
+      }
+
+      expect {
+        post passengers_path, params: passenger_create
+      }.must_change "Passenger.count", 1
+
+      new_passenger = Passenger.find_by(name: passenger_create[:passenger][:name])
+      expect(new_passenger.phone_num).must_equal passenger_create[:passenger][:phone_num]
+
+      must_respond_with :redirect
+      must_redirect_to passenger_path(new_passenger.id)
+    end
+
+    it "will render the same form when trying to create a passenger with invalid data" do
+      passenger_create = {
+        passenger: {
+          name: "",
+          phone_num: "465-643-4565",
+        },
+      }
+
+      expect {
+        post passengers_path, params: passenger_create
+      }.wont_change "Passenger.count"
+
+      must_respond_with :bad_request
+    end
   end
 
   describe "destroy" do

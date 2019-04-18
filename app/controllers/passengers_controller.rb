@@ -12,6 +12,21 @@ class PassengersController < ApplicationController
     end
   end
 
+  def new
+    @passenger = Passenger.new(name: "Default Name", phone_num: "xxx-xxx-xxxx")
+  end
+
+  def create
+    @passenger = Passenger.new(passenger_params)
+    is_successful = @passenger.save
+
+    if is_successful
+      redirect_to passenger_path(@passenger.id)
+    else
+      render :new, status: :bad_request
+    end
+  end
+
   def edit
     @passenger = Passenger.find_by(id: params[:id])
 
