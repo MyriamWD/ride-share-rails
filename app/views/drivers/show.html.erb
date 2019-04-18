@@ -50,7 +50,7 @@
                 <%= link_to trip.passenger.name %>
               </td>
                <td>
-                <p>$ <%= trip.cost %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
+                <p>$ <%= trip.cost / 100 %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
               </td>
                <td>
                 <%= trip.rating.round %>
