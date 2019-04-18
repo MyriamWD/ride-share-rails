@@ -40,58 +40,62 @@ describe PassengersController do
   end
 
   describe "edit" do
-    it "renders the form to edit a driver" do
-      driver = Driver.create(name: "test driver", vin: "badnvkadkvbdjoihuy79y")
-      valid_driver_id = driver.id
-      get edit_driver_path(valid_driver_id)
+    it "renders the form to edit a passenger" do
+      passenger = Passenger.create(name: "test passenger", phone_num: "123-456-7890")
+      valid_passenger_id = passenger.id
+      get edit_passenger_path(valid_passenger_id)
       must_respond_with :success
     end
+
     it "responds with 404 when trying to edit a non existant driver" do
-      invalid_driver_id = "im a  fake id"
-      get edit_driver_path(invalid_driver_id)
+      invalid_passenger_id = "im a fake id"
+      get edit_passenger_path(invalid_passenger_id)
+
       must_respond_with :not_found
     end
   end
+
   describe "update" do
     it "updates an existing driver" do
-      create_input = {
-        name: "The transporter",
-        vin: "vinvinvin123",
+      passenger_input = {
+        name: "test passenger",
+        phone_num: "123-456-7890",
       }
-      driver_to_update = Driver.create(create_input)
+      passenger_to_update = Passenger.create(passenger_input)
       update_input = {
-        "driver": {
-          name: "Not the transporter",
-          vin: "hey, what's up?",
+        "passenger": {
+          name: "updated passenger",
+          phone_num: "564-456-4543",
         },
       }
       expect {
-        patch driver_path(driver_to_update.id), params: update_input
-      }.wont_change "Driver.count"
+        patch passenger_path(passenger_to_update.id), params: update_input
+      }.wont_change "Passenger.count"
       must_respond_with :redirect
-      driver_to_update.reload
-      expect(driver_to_update.name).must_equal update_input[:driver][:name]
-      expect(driver_to_update.vin).must_equal update_input[:driver][:vin]
+      passenger_to_update.reload
+      expect(passenger_to_update.name).must_equal update_input[:passenger][:name]
+      expect(passenger_to_update.phone_num).must_equal update_input[:passenger][:phone_num]
     end
+
     it "will return a bad_request when trying to update with invalid data" do
       create_input = {
-        name: "The transporter",
-        vin: "vinvinvin123",
+        name: "test passenger",
+        phone_num: "123-456-7890",
       }
-      driver_to_update = Driver.create(create_input)
+      passenger_to_update = Passenger.create(create_input)
       update_input = {
-        "driver": {
+        "passenger": {
           name: "",
-          vin: "hey, what's up?",
+          phone_num: "hey, what's up?",
         },
       }
       expect {
-        patch driver_path(driver_to_update.id), params: update_input
-      }.wont_change "Driver.count"
+        patch passenger_path(passenger_to_update.id), params: update_input
+      }.wont_change "Passenger.count"
       must_respond_with :bad_request
-      driver_to_update.reload
-      expect(driver_to_update.name).must_equal create_input[:name]
-      expect(driver_to_update.vin).must_equal create_input[:vin]
+      passenger_to_update.reload
+      expect(passenger_to_update.name).must_equal create_input[:name]
+      expect(passenger_to_update.phone_num).must_equal create_input[:phone_num]
     end
   end
 
