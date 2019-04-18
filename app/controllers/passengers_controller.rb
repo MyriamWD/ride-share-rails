@@ -1,11 +1,11 @@
 class PassengersController < ApplicationController
   def index
-    @passengers = Passenger.all.order(:id)
+    @passengers = Passenger.where(deleted: false).order(:id)
   end
 
   def show
     passenger_id = params[:id]
-    @passenger = Passenger.find_by(id: passenger_id)
+    @passenger = Passenger.find_by(id: passenger_id, deleted: false)
     @trips = Trip.where(passenger_id: passenger_id)
     if @passenger.nil?
       head :not_found
@@ -54,7 +54,8 @@ class PassengersController < ApplicationController
     if passenger.nil?
       head :not_found
     else
-      passenger.destroy
+      passenger[:deleted] = true
+      passenger.save
       redirect_to passengers_path
     end
   end

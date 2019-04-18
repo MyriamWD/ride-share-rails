@@ -96,7 +96,7 @@ describe DriversController do
       expect(driver_to_update.name).must_equal create_input[:name]
       expect(driver_to_update.vin).must_equal create_input[:vin]
     end
-  end
+  endc
 
   describe "new" do
     # Your tests go here
