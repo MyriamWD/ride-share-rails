@@ -5,7 +5,7 @@ class Driver < ApplicationRecord
   validates :vin, presence: true
 
   def average_rating
-    Trip.average(:rating)
+    average = Trip.average(:rating).where(driver_id: driver_id)
   end
 
   def total_earnigns
