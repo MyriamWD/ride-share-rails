@@ -2,7 +2,8 @@
     <%= @driver.name%>
 </h1>
 
-<h2>Average Rating: <%#Calculate rating here%></h2>
+<h2>Average Rating: <%= @driver.average_rating %></h2>
+<h2>Total Earnings: <%= @driver.total_earnings %></h2>
 
 <section>
     <h2>Dirver Trips</h2>
@@ -50,7 +51,7 @@
                 <%= link_to trip.passenger.name %>
               </td>
                <td>
-                <p>$ <%= trip.cost / 100 %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
+                <p>$ <%= (trip.cost / 100).round(2) %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
               </td>
                <td>
                 <%= trip.rating.round %>

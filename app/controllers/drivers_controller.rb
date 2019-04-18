@@ -50,13 +50,25 @@ class DriversController < ApplicationController
 
   def destroy
     driver = Driver.find_by(id: params[:id])
-
+    id = 0
     if driver.nil?
       head :not_found
-    else
+    elsif driver.trips == nil
       driver.destroy
       redirect_to drivers_path
+      # else
+      #   @trips = Trip.where(driver_id: driver.id)
+      #   @trips.each do |trip|
+      #     trip.destroy
+
+      # we can try to change the id to a different thing
+      # or destroy the trip - so far this is deleting the trips related to the driver
+      # end
+      driver.destroy
+      redirect_to drivers_path  
     end
+    driver.destroy
+    redirect_to drivers_path
   end
 
   def driver_params
