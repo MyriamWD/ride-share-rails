@@ -48,7 +48,7 @@
                 <%= @trip.rating.round %>
               </td>
               <td>
-                <%= link_to "Delete" %>
+                <%= link_to "Delete", trip_path(@trip.id), method: :delete %>
                 <%= link_to "Edit" %>
               </td>
             </tr>

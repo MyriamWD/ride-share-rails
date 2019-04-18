@@ -23,6 +23,26 @@ describe TripsController do
   end
 
   describe "destroy" do
-    # Your tests go here
+    it "successfully deletes a trip" do
+      trip_create = {
+        date: "2019-04-19",
+        rating: 5,
+        cost: 345,
+        driver_id: Driver.create(name: "test driver", vin: "test vin").id,
+        passenger_id: Passenger.create(name: "test passenger", phone_num: "123123123").id,
+      }
+      new_trip = Trip.create(trip_create)
+      expect {
+        delete trip_path(new_trip.id)
+      }.must_change "Trip.count", -1
+      must_respond_with :redirect
+    end
+    it "returns 404 if not found" do
+      invalid_id = -1
+      expect {
+        delete trip_path(invalid_id)
+      }.wont_change "Trip.count"
+      must_respond_with :not_found
+    end
   end
 end

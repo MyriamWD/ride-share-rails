@@ -29,7 +29,12 @@ class TripsController < ApplicationController
 
   def destroy
     trip = Trip.find_by(id: params[:id])
-    trip.destroy
+    if trip.nil?
+      head :not_found
+    else
+      trip.destroy
+      redirect_to drivers_path # make a home page for the website
+    end
   end
 
   def trip_params

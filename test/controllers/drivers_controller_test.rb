@@ -144,7 +144,7 @@ describe DriversController do
   end
 
   describe "destroy" do
-    it "successfully deletes a task" do
+    it "successfully deletes a driver" do
       driver_create = {
         name: "Bark Alot",
         vin: "4legs",

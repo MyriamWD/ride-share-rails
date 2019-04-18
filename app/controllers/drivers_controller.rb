@@ -50,7 +50,7 @@ class DriversController < ApplicationController
 
   def destroy
     driver = Driver.find_by(id: params[:id])
-    id = 0
+
     if driver.nil?
       head :not_found
     elsif driver.trips == nil
