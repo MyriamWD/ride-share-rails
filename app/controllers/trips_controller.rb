@@ -7,6 +7,7 @@ class TripsController < ApplicationController
   def show
     trip_id = params[:id]
     @trip = Trip.find_by(id: trip_id)
+    # redirect_to passenger_trip_path(@trip.id)
     if @trip.nil?
       head :not_found
     end
@@ -14,11 +15,14 @@ class TripsController < ApplicationController
 
   def new
     passenger_id = Passenger.find_by(id: passenger_id)
-    @trip = Trip.new(date: "2019-4-19", driver_id: 1, passenger_id: passenger_id, cost: 578, rating: 4)
+    @trip = Trip.new(date: "yyyy-mm-dd", driver_id: "id", passenger_id: passenger_id, cost: 0, rating: 0)
   end
 
   def create
+    passenger = params[:passenger_id].to_i
     @trip = Trip.new(trip_params)
+    @trip[:passenger_id] = passenger
+
     is_successful = @trip.save
 
     if is_successful
@@ -55,7 +59,7 @@ class TripsController < ApplicationController
       head :not_found
     else
       trip.destroy
-      redirect_to driver_path(trip.driver_id) # make a home page for the website
+      redirect_to root_path # make a home page for the website
     end
   end
 
