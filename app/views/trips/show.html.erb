@@ -42,14 +42,14 @@
                 <%= link_to @trip.passenger.name, passenger_path(@trip.passenger.id) %>
               </td>
                <td>
-                <p>$ <%= (@trip.cost / 100).round(2) %> <%#Calculate the price The driver gets 80% of the trip cost after a fee of $1.65 is subtracted%></p>
+                <p>$ <%= (@trip.cost / 100).round(2) %> 
               </td>
                <td>
                 <%= @trip.rating.round %>
               </td>
               <td>
                 <%= link_to "Delete", trip_path(@trip.id), method: :delete %>
-                <%= link_to "Edit" %>
+                <%= link_to "Edit", edit_trip_path(@trip.id) %>
               </td>
             </tr>
           </tbody>

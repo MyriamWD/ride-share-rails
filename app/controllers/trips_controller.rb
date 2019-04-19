@@ -27,6 +27,27 @@ class TripsController < ApplicationController
     end
   end
 
+  def edit
+    @trip = Trip.find_by(id: params[:id])
+
+    if @trip.nil?
+      head :not_found
+    end
+  end
+
+  def update
+    trip = Trip.find_by(id: params[:id])
+
+    is_successful = trip.update(trip_params)
+
+    if is_successful
+      redirect_to trip_path(trip.id)
+    else
+      @trip = trip
+      render :edit, status: :bad_request
+    end
+  end
+
   def destroy
     trip = Trip.find_by(id: params[:id])
     if trip.nil?
