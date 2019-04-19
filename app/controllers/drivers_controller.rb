@@ -1,11 +1,11 @@
 class DriversController < ApplicationController
   def index
-    @drivers = Driver.all.order(:id)
+    @drivers = Driver.where(deleted: false).order(:id)
   end
 
   def show
     driver_id = params[:id]
-    @driver = Driver.find_by(id: driver_id)
+    @driver = Driver.find_by(id: driver_id, deleted: false)
     @trips = Trip.where(driver_id: driver_id)
     if @driver.nil?
       head :not_found
@@ -53,23 +53,14 @@ class DriversController < ApplicationController
 
     if driver.nil?
       head :not_found
-    elsif driver.trips == nil
-      driver.destroy
-      redirect_to drivers_path
     else
-      @trips = Trip.where(driver_id: driver.id)
-      @trips.each do |trip|
-        trip.destroy
-
-        # we can try to change the id to a different thing
-        # or destroy the trip - so far this is deleting the trips related to the driver
-      end
-      driver.destroy
+      driver[:deleted] = true
+      driver.save
       redirect_to drivers_path
     end
   end
 
   def driver_params
-    return params.require(:driver).permit(:name, :vin)
+    return params.require(:driver).permit(:name, :vin, :deleted)
   end
 end

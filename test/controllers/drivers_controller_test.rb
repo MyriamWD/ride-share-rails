@@ -12,7 +12,7 @@ describe DriversController do
   describe "show" do
     it "should be ok to show an existing, valid driver" do
       # skip
-      driver = Driver.create(name: "test driver", vin: "badnvkadkvbdjoihuy79y")
+      driver = Driver.create(name: "test driver", vin: "badnvkadkvbdjoihuy79y", deleted: false)
       valid_driver_id = driver.id
 
       get driver_path(valid_driver_id)
@@ -148,19 +148,22 @@ describe DriversController do
       driver_create = {
         name: "Bark Alot",
         vin: "4legs",
+        deleted: false,
       }
       new_driver = Driver.create(driver_create)
-      expect {
-        delete driver_path(new_driver.id)
-      }.must_change "Driver.count", -1
+
+      delete driver_path(new_driver.id)
       must_respond_with :redirect
+
+      deleted_driver = Driver.find_by(name: driver_create[:name])
+      expect(deleted_driver.deleted).must_equal true
     end
 
     it "returns 404 if not found" do
       invalid_id = "Hello"
-      expect {
-        delete driver_path(invalid_id)
-      }.wont_change "Driver.count"
+
+      delete driver_path(invalid_id)
+
       must_respond_with :not_found
     end
   end

@@ -144,6 +144,28 @@ describe PassengersController do
   end
 
   describe "destroy" do
-    # Your tests go here
+    it "successfully change the passenger deleted status from false to true" do
+      passenger_create = {
+        name: "joy",
+        phone_num: "465-643-4565",
+        deleted: false,
+      }
+      new_passenger = Passenger.create(passenger_create)
+
+      delete passenger_path(new_passenger.id)
+
+      must_respond_with :redirect
+
+      deleted_passenger = Passenger.find_by(name: passenger_create[:name])
+      expect(deleted_passenger.deleted).must_equal true
+    end
+
+    it "returns 404 if not found" do
+      invalid_id = "Hello"
+
+      delete passenger_path(invalid_id)
+
+      must_respond_with :not_found
+    end
   end
 end
