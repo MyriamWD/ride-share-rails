@@ -7,6 +7,7 @@ class PassengersController < ApplicationController
     passenger_id = params[:id]
     @passenger = Passenger.find_by(id: passenger_id, deleted: false)
     @trips = Trip.where(passenger_id: passenger_id)
+
     if @passenger.nil?
       head :not_found
     end
@@ -61,6 +62,6 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    return params.require(:passenger).permit(:name, :phone_num)
+    return params.require(:passenger).permit(:name, :phone_num, :deleted)
   end
 end
