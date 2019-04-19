@@ -54,7 +54,7 @@ class TripsController < ApplicationController
       head :not_found
     else
       trip.destroy
-      redirect_to drivers_path # make a home page for the website
+      redirect_to driver_path(trip.driver_id) # make a home page for the website
     end
   end
 
