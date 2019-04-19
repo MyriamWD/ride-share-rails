@@ -13,7 +13,7 @@ class TripsController < ApplicationController
   end
 
   def new
-    @trip = Trip.new(:date, :driver_id, :passenger_id, :cost, :rating)
+    @trip = Trip.new(date: "mm-dd-yyyy", driver_id: "id_num", passenger_id: "id_num", cost: "$", rating: "1 to 5")
   end
 
   def create

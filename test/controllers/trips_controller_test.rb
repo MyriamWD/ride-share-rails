@@ -10,7 +10,7 @@ describe TripsController do
   end
 
   describe "edit" do
-    it "renders the form to edit a trip" do
+    it "can get to the edit task page" do
       trip = Trip.create(date: "2019-4-18", driver_id: Driver.create(name: "Myriam", vin: "vinnumber").id, passenger_id: Passenger.create(name: "NotMyriam", phone_num: "phone humber call").id, rating: 5, cost: 3890)
       valid_trip_id = trip.id
       get edit_trip_path(valid_trip_id)
@@ -96,7 +96,7 @@ describe TripsController do
     it "will render the same form when trying to create a trip with invalid data" do
       trip_create = {
         trip: {
-          date: "2016-3-25",
+          date: "",
           driver_id: Driver.create(name: "Rosa Margarita", vin: "vinnumber").id,
           passenger_id: Passenger.create(name: "Melo", phone_num: "phone humber call").id,
           rating: 2,
