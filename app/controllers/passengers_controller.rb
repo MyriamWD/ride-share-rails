@@ -19,6 +19,7 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params)
+    @passenger[:deleted] = false
     is_successful = @passenger.save
 
     if is_successful
@@ -62,6 +63,6 @@ class PassengersController < ApplicationController
   end
 
   def passenger_params
-    return params.require(:passenger).permit(:name, :phone_num, :deleted)
+    return params.require(:passenger).permit(:name, :phone_num)
   end
 end

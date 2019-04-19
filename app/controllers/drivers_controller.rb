@@ -18,6 +18,7 @@ class DriversController < ApplicationController
 
   def create
     @driver = Driver.new(driver_params)
+    @driver[:deleted] = false
     is_successful = @driver.save
 
     if is_successful
@@ -61,6 +62,6 @@ class DriversController < ApplicationController
   end
 
   def driver_params
-    return params.require(:driver).permit(:name, :vin, :deleted)
+    return params.require(:driver).permit(:name, :vin)
   end
 end
