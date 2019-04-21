@@ -1,8 +1,6 @@
 <h2>Use this form to edit the trip's info!</h2>
 
-<%= render partial: "form", locals: {
+<%= render partial: "form_trip", locals: {
     form_class: "edit-trip",
     action_name: "Edit Trip"
 }%>
-
-<%= link_to "Back to trip's information", trip_path(@trip.id)%>

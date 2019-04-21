@@ -11,7 +11,7 @@ describe TripsController do
 
   describe "edit" do
     it "can get to the edit task page" do
-      trip = Trip.create(date: "2019-4-18", driver_id: Driver.create(name: "Myriam", vin: "vinnumber").id, passenger_id: Passenger.create(name: "NotMyriam", phone_num: "phone humber call").id, rating: 5, cost: 3890)
+      trip = Trip.create(date: "2019-4-18", driver_id: Driver.create(name: "Myriam", vin: "vinnumber", deleted: false).id, passenger_id: Passenger.create(name: "NotMyriam", phone_num: "phone humber call", deleted: false).id, rating: 5, cost: 3890)
       valid_trip_id = trip.id
       get edit_trip_path(valid_trip_id)
 
@@ -63,13 +63,6 @@ describe TripsController do
     end
   end
 
-  describe "new" do
-    it "renders the form to create a new trip" do
-      get new_trip_path
-      must_respond_with :success
-    end
-  end
-
   describe "create" do
     it "creates a new trip" do
       trip_create = {
@@ -83,7 +76,7 @@ describe TripsController do
       }
 
       expect {
-        post trips_path, params: trip_create
+        post passenger_trips_path, params: trip_create
       }.must_change "Trip.count", 1
 
       new_trip = Trip.find_by(date: trip_create[:trip][:date])
@@ -104,7 +97,7 @@ describe TripsController do
         },
       }
       expect {
-        post trips_path, params: trip_create
+        post passenger_trips_path, params: trip_create
       }.wont_change "Trip.count"
 
       must_respond_with :bad_request
