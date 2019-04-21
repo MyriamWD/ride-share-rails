@@ -14,14 +14,13 @@ class TripsController < ApplicationController
   end
 
   def new
-    passenger_id = Passenger.find_by(id: passenger_id)
-    @trip = Trip.new(date: "yyyy-mm-dd", driver_id: "id", passenger_id: passenger_id, cost: 0, rating: 0)
+    passenger = Passenger.find_by(id: params[:passenger_id])
+    driver = Driver.first
+    @trip = Trip.new(date: Date.today, passenger_id: passenger.id, driver_id: driver.id)
   end
 
   def create
-    passenger = params[:passenger_id].to_i
     @trip = Trip.new(trip_params)
-    @trip[:passenger_id] = passenger
 
     is_successful = @trip.save
 
