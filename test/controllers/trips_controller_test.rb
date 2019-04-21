@@ -50,7 +50,7 @@ describe TripsController do
       }
 
       expect {
-        patch trip_path(trip_to_update.id), params: update_trip_input
+        patch passenger_trip_path(trip_to_update.id), params: update_trip_input
       }.wont_change "Trip.count"
 
       must_respond_with :redirect

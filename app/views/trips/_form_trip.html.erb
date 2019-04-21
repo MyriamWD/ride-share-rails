@@ -8,7 +8,7 @@
   </ul>
 <% end %>
 
-<%= form_with model: @trip, url:passenger_trips_path do |f|%>
+<%= form_with model: @trip, url: url_path do |f|%>
     <%= f.label :date %>
     <%= f.text_field :date %>
 

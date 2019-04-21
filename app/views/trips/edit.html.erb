@@ -1,6 +1,7 @@
 <h2>Use this form to edit the trip's info!</h2>
 
 <%= render partial: "form_trip", locals: {
+    url_path: passenger_trip_path(@trip.passenger_id), 
     form_class: "edit-trip",
     action_name: "Edit Trip"
 }%>

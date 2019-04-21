@@ -25,7 +25,7 @@ class TripsController < ApplicationController
     is_successful = @trip.save
 
     if is_successful
-      redirect_to trip_path(@trip.id)
+      redirect_to passenger_path(@trip.passenger_id)
     else
       render :new, status: :bad_request
     end
